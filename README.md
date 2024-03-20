@@ -20,10 +20,15 @@ Este proyecto corresponde a la entrega del trabajo final de PWD
 </div>
 
 - Instrucciones:
-1. Copiar el contenido de bdrapida.sql en la base de datos directamente.
-Está diseñada para borrar la base de datos bdcarritocompras y volver a crearla con un poblamiento predefinido
-2. Los usuarios que ya se encuentran creados para utilizar junto con sus contraseñas son:
-Admin/1234
-Deposito/1234
-Cliente/1234
-AdminTotal/1234
+1. Copiar el contenido de bdcarritocompras.sql que se encuentra en Tecno_Mates/Modelo/sql/bdcarritocompras.sql a la base de datos directamente.
+Está diseñada para borrar la base de datos bdcarritocompras y volver a crearla con un poblamiento predefinido.
+
+2. Modificar la ruta de la variable $PROYECTO que se encuentra en Tecno_Mates/configuracion.php según la ubicación donde se vaya a localizar el proyecto.
+Por defecto: $PROYECTO ='00_PROYECTOS/03_PWD_2023/Entregas/Tecno_Mates/';
+
+3. Las cuentas de usuario que ya se encuentran creadas para utilizar junto con sus contraseñas son:
+
+<b>Admin/1234</b>
+<b>Deposito/1234</b>
+<b>Cliente/1234</b>
+<b>AdminTotal/1234</b>

@@ -7,7 +7,7 @@ header("Cache-Control: no-cache, must-revalidate");
 // CONFIGURACION APP//
 /////////////////////////////
 
-$PROYECTO ='00_PROYECTOS/03_PWD_2023/Entregas/PWDTPFinal/';
+$PROYECTO ='00_PROYECTOS/03_PWD_2023/Entregas/Tecno_Mates/';
 
 //variable que almacena el directorio del proyecto
 $ROOT =$_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";
