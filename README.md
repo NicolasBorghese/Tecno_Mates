@@ -14,12 +14,16 @@ Programación Web Dinámica 2023
     </tr>
 </table>
 
-## Información del repositorio
-
-Este proyecto corresponde a la entrega del trabajo final de PWD
 </div>
 
-### Instrucciones:
+## Resumen
+
+Trabajo final de la materia Programación Web Dinámica (PWD). Corresponde al sitio web de un carrito de compras con temática de productos relacionados al mate.
+
+Repositorio original en el que se desarrollo el proyecto:
+https://github.com/Alter1412/PWDTPFinal
+
+### Instrucciones de uso:
 1. Copiar el contenido de bdcarritocompras.sql que se encuentra en Tecno_Mates/Modelo/sql/bdcarritocompras.sql a la base de datos directamente.
 Está diseñada para borrar la base de datos bdcarritocompras y volver a crearla con un poblamiento predefinido.
 
