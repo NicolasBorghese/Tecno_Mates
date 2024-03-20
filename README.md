@@ -19,7 +19,7 @@ Programación Web Dinámica 2023
 Este proyecto corresponde a la entrega del trabajo final de PWD
 </div>
 
-- Instrucciones:
+### Instrucciones:
 1. Copiar el contenido de bdcarritocompras.sql que se encuentra en Tecno_Mates/Modelo/sql/bdcarritocompras.sql a la base de datos directamente.
 Está diseñada para borrar la base de datos bdcarritocompras y volver a crearla con un poblamiento predefinido.
 
@@ -28,7 +28,9 @@ Por defecto: $PROYECTO ='00_PROYECTOS/03_PWD_2023/Entregas/Tecno_Mates/';
 
 3. Las cuentas de usuario que ya se encuentran creadas para utilizar junto con sus contraseñas son:
 
-<b>Admin/1234</b>
-<b>Deposito/1234</b>
-<b>Cliente/1234</b>
-<b>AdminTotal/1234</b>
+<div align="center">
+    <b>Admin/1234</b><br>
+    <b>Deposito/1234</b><br>
+    <b>Cliente/1234</b><br>
+    <b>AdminTotal/1234</b>
+<div>
