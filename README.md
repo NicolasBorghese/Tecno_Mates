@@ -1,7 +1,7 @@
 <div align="center">
 Programación Web Dinámica 2023
 
-# <a href="http://localhost/PWDTPFinal/Vista/Home/home.php">Grupo 02.1 Trabajo Final PWD</a>
+# <a href="00_PROYECTOS/03_PWD_2023/Entregas/Tecno_Mates/index.php">Grupo 02.1 Trabajo Final PWD</a>
 
 ## Integrantes
 
