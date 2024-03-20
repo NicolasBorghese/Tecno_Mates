@@ -113,8 +113,8 @@ class Usuario {
 
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO usuario (usnombre, uspass, usmail) 
-        VALUES('".$this->getUsNombre()."','".$this->getUsPass()."','".$this->getUsMail()."');";
+        $sql = "INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) 
+        VALUES('".$this->getUsNombre()."','".$this->getUsPass()."','".$this->getUsMail()."', '0000-00-00 00:00:00');";
 
         if ($base->Iniciar()){
             if ($id = $base->Ejecutar($sql)) {
@@ -143,7 +143,7 @@ class Usuario {
         $sql = "UPDATE usuario SET usnombre = '".$this->getUsNombre()."', uspass = '".$this->getUsPass()
         ."', usmail = '".$this->getUsMail()."', usdeshabilitado='".$this->getUsDeshabilitado()
         ."' WHERE idusuario = ".$this->getIdUsuario();
-        
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -189,7 +189,7 @@ class Usuario {
      * 
      * @return array
      */
-    public function listar($parametro){
+    public function listar($parametro=""){
         $arreglo = array();
         $base = new BaseDatos();
 
@@ -198,7 +198,7 @@ class Usuario {
         if ($parametro!="") {
             $sql .= " WHERE ".$parametro;
         }
-        
+      
         $res = $base->Ejecutar($sql);
         if($res>-1){
             if($res>0){

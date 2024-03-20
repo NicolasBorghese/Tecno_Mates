@@ -45,7 +45,6 @@ class AbmRol{
         return $resp;
     }
 
-
     /**
      * 
      * @param array $param
@@ -69,7 +68,7 @@ class AbmRol{
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $unObjRol = $this->cargarObjeto($param);
+            $unObjRol = $this->cargarObjetoConClave($param);
             if ($unObjRol!=null && $unObjRol->eliminar()){
                 $resp = true;
             }
@@ -107,7 +106,30 @@ class AbmRol{
             if  (isset($param['rodescripcion']))
                 $where.=" and rodescripcion ='".$param['rodescripcion']."'";
         }
+
         $obj = new Rol();
+        $arreglo = $obj->listar($where);
+        return $arreglo;
+    }
+
+    /**
+     * Retorna todos los obj menu a los que el usuario puede acceder
+     * Devuelve un array MenuRol
+     * @param array $param
+     * @return array|null
+     */
+    public function buscarPermisos($param){
+
+        $arreglo = null;
+
+        $where = " true ";
+        if($param != null){
+            if(array_key_exists("id",$param)){
+                $where.= "and idrol = '". $param["id"]  ."'";
+            }
+        }
+
+        $obj = new MenuRol();
         $arreglo = $obj->listar($where);
         return $arreglo;
     }

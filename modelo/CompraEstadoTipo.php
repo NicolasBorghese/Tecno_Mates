@@ -162,14 +162,14 @@ public function getMensajeOperacion(){
      * 
      * @return array
      */
-    public function listar($parametro){
+    public function listar($parametro = ""){
         $arreglo = array();
         $base = new BaseDatos();
     
         $sql = "SELECT * FROM compraestadotipo ";
     
        if ($parametro != "") {
-         $sql .= " WHERE ".$parametro;
+         $sql .= " WHERE .$parametro";
         }
        $res = $base->Ejecutar($sql);
        if ($res > -1) {

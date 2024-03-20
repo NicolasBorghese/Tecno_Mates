@@ -1,5 +1,6 @@
 <?php
 class Menu {
+
     private $idmenu;
     private $menombre ;
     private $medescripcion;
@@ -11,8 +12,8 @@ class Menu {
         $this->idmenu="";
         $this->menombre="" ;
         $this->medescripcion="";
-        $this->menuPadre= null;
-        $this->medeshabilitado = null;
+        $this->menuPadre = null;
+        $this->medeshabilitado = "";
         $this->mensajeoperacion ="";     
     }
 
@@ -113,9 +114,19 @@ class Menu {
         $resp = false;
         $base = new BaseDatos();
 
-        $sql = "INSERT INTO menu( menombre ,  medescripcion ,  idpadre ,  medeshabilitado) 
-        VALUES ('".$this->getMeNombre()."','".$this->getMeDescripcion()."','".$this->getMenuPadre()->getIdMenu()."','".$this->getMeDeshabilitado()."')";
-     
+        $idPadre[0] = ",";
+        $idPadre[1] = ",";
+        /**Si el menu padre es distinto de nulo y menu padre es distinto de "" */
+        if($this->getMenuPadre() != null && $this->getMenuPadre()->getIdMenu() != ""){
+            $idPadre[0] = ",idpadre,";
+            $idPadre[1] = ",idpadre = '". $this->getMenuPadre()->getIdMenu() . "',";
+        }
+
+
+        $sql = "INSERT INTO menu(menombre, medescripcion". $idPadre[0] ."medeshabilitado)
+        VALUES ('" . $this->getMeNombre() . "', '". $this->getMeDescripcion() ."'". $idPadre[1] ."
+        '". $this->getMeDeshabilitado() ."');";
+       
        if ($base->Iniciar()) {
          if ($elid = $base->Ejecutar($sql)) {
             $this->setIdMenu($elid);

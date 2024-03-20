@@ -11,6 +11,7 @@ class AbmUsuarioRol{
         $objUsuarioRol = null;
         $objRol = null;
         $objUsuario = null;
+
         if (array_key_exists('idrol', $param) && $param['idrol'] != null) {
             $objRol = new Rol();
             $objRol->setIdrol($param['idrol']);
@@ -40,8 +41,18 @@ class AbmUsuarioRol{
          $objUsuarioRol = null;
          $objRol = null;
          if (isset($param['idusuario']) && isset($param['idrol'])) {
+
+            $objusuario = new Usuario();
+            $objusuario->setIdUsuario($param['idusuario']);
+            $objusuario->cargar();
+
+            $objRol = new Rol();
+            $objRol->setIdRol($param['idrol']);
+            $objRol->cargar();
+
             $objUsuarioRol = new UsuarioRol();
-            $objUsuarioRol->setear($objUsuarioRol,$objRol);
+            $objUsuarioRol->setear($objusuario,$objRol);
+            
          }
          return $objUsuarioRol;
      }
@@ -54,10 +65,11 @@ class AbmUsuarioRol{
     
      private function seteadosCamposClaves($param)
      {
+       
         $resp = false;
-        if (isset($param['idusuario']) && isset($param['idrol']));
-
-        $resp = true;
+        if (isset($param['idusuario']) && isset($param['idrol'])){
+            $resp = true;
+        }
         return $resp;
      }
 
@@ -84,8 +96,9 @@ class AbmUsuarioRol{
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $unObj = $this->cargarObjeto($param);
+            $unObj = $this->cargarObjetoConClave($param);
             if ($unObj!=null && $unObj->eliminar()){
+                
                 $resp = true;
             }
         }
@@ -113,7 +126,7 @@ class AbmUsuarioRol{
     /**
      * permite buscar un objeto
      * @param array $param
-     * @return boolean
+     * @return array
      */
     public function buscar($param)
     {

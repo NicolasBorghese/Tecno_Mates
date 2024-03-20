@@ -143,7 +143,7 @@ class BaseDatos extends PDO {
      * caso contrario se retorna -1. Si la consulta falla retornara 0
      */
     private function EjecutarInsert($sql){
-        //echo $sql;
+
         //$resultado devuelve un objeto cuando la consulta es exitosa y falso en caso contrario
         $resultado = parent::query($sql);
 
@@ -183,7 +183,7 @@ class BaseDatos extends PDO {
     */
     private function EjecutarSelect($sql){
         $cant = -1;
-        //echo $sql;
+
         //$resultado devuelve un objeto cuando la consulta es exitosa y falso en caso contrario
         $resultado=parent::query($sql);
 

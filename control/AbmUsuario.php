@@ -11,6 +11,7 @@ class AbmUsuario
     private function cargarObjeto($param)
     {
         $obj = null;
+
         if (
             array_key_exists('idusuario', $param) and
             array_key_exists('usnombre', $param) and
@@ -18,6 +19,7 @@ class AbmUsuario
             array_key_exists('usmail', $param) and
             array_key_exists('usdeshabilitado', $param)
         ) {
+
             $obj = new Usuario();
             $obj->setear($param['idusuario'], $param['usnombre'], $param['uspass'], $param['usmail'], $param['usdeshabilitado']);
         }
@@ -106,28 +108,35 @@ class AbmUsuario
         return $respuesta;
     }
 
-
     /**
-     * Devuelve una lista con los roles de los usuarios, espera
-     * $param['idusuario'] y $param['idrol'], retorna un
-     * arreglo de objetos objetos usuarioRol
+     * Devuelve una lista con los roles de un usuario, espera
+     * $param['idusuario'], retorna un
+     * arreglo de objetos Rol.
      * 
      * @return array
      */
-    public function darRoles($param)
+    public function buscarRoles($param)
     {
         $where = " true ";
+        $arregloRol = [];
         if ($param <> null) {
             if (isset($param['idusuario']))
                 $where .= " and idusuario =" . $param['idusuario'];
-            if (isset($param['idrol']))
-                $where .= " and idrol =" . $param['idrol'];
+            /*if (isset($param['idrol']))
+                $where .= " and idrol =" . $param['idrol'];*/
         }
         $obj = new UsuarioRol();
-        $arreglo = $obj->listar($where);
-        return $arreglo;
+        $arregloUsuarioRol = $obj->listar($where);
+
+        for ($i=0; $i < count($arregloUsuarioRol); $i++ ){
+            $arregloRol[] = $arregloUsuarioRol[$i]->getObjRol();
+        }
+        return $arregloRol;
     }
 
+    /**
+     * Borra UN rol del usuario
+     */
     public function borrarRol()
     {
         $resp = false;
@@ -136,18 +145,18 @@ class AbmUsuario
             $objTabla->setear($param['idusuario'], $param['idrol']);
             $resp = $objTabla->eliminar();
         }
-
         return $resp;
     }
 
     /* permite actualizar la fecha de baja del usuario */
-    public function borradoLogico($param)
-    {
-
-        $resp = false;
-        if ($this->seteadosCamposClaves($param)) {
-            $unObjUsuario = $this->cargarObjetoConClave($param);
-            $unObjUsuario->deshabilitar();
+    public function borradoLogico($param){
+        $resp=false;
+        if($this->seteadosCamposClaves($param)){
+            $objUsuario= $this->cargarObjetoConClave($param);
+            if ($objUsuario->deshabilitar()){
+                $resp= true;
+                $objUsuario->cargar();
+            }
         }
         return $resp;
     }
@@ -177,7 +186,6 @@ class AbmUsuario
 
         $obj = new Usuario();
         $arreglo = $obj->listar($where);
-
         return $arreglo;
     }
 
@@ -204,4 +212,97 @@ class AbmUsuario
 
         return $colInfo;
     }
+
+    /**
+     * Revisa si un mail o nombre ya se encuentran en la base de datos.
+     */
+    public function existen($param){
+        $resp = false;
+        $objUsuario = new AbmUsuario();
+        $datos['usnombre']=$param['usnombre'];
+        $datos['usmail']=$param['usmail'];
+        $busqueda = $objUsuario->buscar($datos);
+        if(count($busqueda)>0){
+            $resp = true;
+        }
+        return $resp;
+    }
+
+    public function crearUsuarioAdmin($datos){
+        $resp = false;
+        // Extraigo datos necesarios para la creación de usuario
+        $usuario = $datos['usnombre'];
+        $email = $datos['usmail'];
+        $passEncriptada = md5($datos['uspass']);
+        //creo los objetos Usuario y objeto UsuarioRol
+        $objUsuario = new AbmUsuario();
+        //Guardo los parametros del Usuario
+        $paramUsuario['idusuario'] = 0;
+        $paramUsuario['usnombre'] = $usuario;
+        $paramUsuario['uspass'] = $passEncriptada;
+        $paramUsuario['usmail'] = $email;
+        $paramUsuario['usdeshabilitado'] = "'0000-00-00 00:00:00'";
+
+        //Lo cargo a la base de datos
+        $exito = $objUsuario->alta($paramUsuario);
+        if($exito){
+            $objUsuarioRol = new AbmUsuarioRol();
+
+            $paramUsuario2['usnombre'] = $usuario;
+            $nuevoUsuario = $objUsuario->buscar($paramUsuario2);
+            $idUsuario = $nuevoUsuario[0]->getIdUsuario();
+            $paramUsuarioRol['idusuario'] = $idUsuario;
+            //echo $idUsuario."<br>";
+            if(array_key_exists('Cliente', $datos)){
+                //echo "Entro a Cliente <br>";
+                $paramUsuarioRol['idrol'] = 3;
+                //verEstructura($paramUsuarioRol);
+                $objUsuarioRol->alta($paramUsuarioRol);
+            }
+            if(array_key_exists('Deposito', $datos)){
+                $paramUsuarioRol['idrol'] = 2;
+                $objUsuarioRol->alta($paramUsuarioRol);
+            }
+            if(array_key_exists('Admin', $datos)){
+                $paramUsuarioRol['idrol'] = 1;
+                $objUsuarioRol->alta($paramUsuarioRol);
+            }
+            $nuevaCompra = new AbmCompra();
+            $aux['idcompra'] = 0;
+            $aux['cofecha'] = null;
+            $aux['idusuario'] = $idUsuario;
+            $nuevaCompra->alta($aux);
+            $resp = true;
+            
+        }
+        return $resp;
+    }
+
+    public function crearUsuario($datos){
+        $resp = false;
+        $usnombre = $datos['usnombre'];
+        $usmail = $datos['usmail'];
+
+        $param['usnombre'] = $usnombre;
+        $param['usmail'] = $usmail;
+        $param['idusuario'] = 0;
+        $param['uspass'] = md5(123456);
+        $param['usdeshabilitado'] = NULL;
+
+        $objUsuario = new AbmUsuario();
+        $resultado = $objUsuario->alta($param);// poner el resulstado de crear al usuario (true o false)
+        if($resultado){
+            $buscarNuevoUsuario = $objUsuario->buscar($datos);
+            $idusuario = $buscarNuevoUsuario[0]->getIdUsuario();
+            $nuevaCompra = new AbmCompra();
+            $aux['idcompra'] = 0;
+            $aux['cofecha'] = null;
+            $aux['idusuario'] = $idusuario;
+            $nuevaCompra->alta($aux);
+            $resp = true;
+        }
+        return $resp;
+    }
 }
+
+?>

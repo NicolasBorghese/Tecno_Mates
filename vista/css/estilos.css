@@ -1,339 +1,113 @@
-/* -------------------- FUENTES -------------------- */
+/*-------------------------------------- FUENTES ---------------------------------------------*/
 @font-face {
-    font-family: 'Titillium_Web';
-    src: url('../../Utiles/fuentes/fuentes/AnyConv.com__TitilliumWeb-SemiBold.woff') format('woff');
+    font-family: 'playballregular';
+    src: url('../fonts/Playball/playball-regular-webfont.woff2') format('woff2'),
+         url('../fonts/Playball/playball-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* -------------------- AJUSTES GENERALES -------------------- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
+@font-face {
+    font-family: 'montserratthin';
+    src: url('../fonts/Montserrat/montserrat-variablefont_wght-webfont.woff2') format('woff2'),
+         url('../fonts/Montserrat/montserrat-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
+@font-face {
+    font-family: 'robotolight';
+    src: url('../fonts/Roboto/roboto-light-webfont.woff2') format('woff2'),
+         url('../fonts/Roboto/roboto-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'robotobold';
+    src: url('roboto-bold-webfont.woff2') format('woff2'),
+         url('roboto-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*-------------------------------------- BODY ------------------------------------------------*/
 body {
-    color: var(--fuentes);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.8)),
+    url(../img/ContenidoSitio/fondo2.jpg);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  font-family: 'robotolight', sans-serif;
+  font-weight:900;
 }
 
-/* -------------------- DEFINICIÓN DE VARIABLES -------------------- */
-:root {
-    --estructura: #0C0C0D;
-    --fuentes: #8b8b8b;
+/*-------------------------------------- FUENTE EN SITIO -------------------------------------*/
+a.dropdown-item, .card-title, .form-control, .btn {
+    font-weight: 900;
 }
 
-/* -------------------- ESTILOS HEADER -------------------- */
-.header {
-    padding: 30px;
-    margin: 0;
-    height: 150px;
-    display: flex;
+/*-------------------------------------- ESTILO ICONOS ---------------------------------------*/
+.color_icon_1 {
+  font-size: 2em;
+  background: linear-gradient(to right, rgb(5, 65, 32), rgb(55, 92, 4));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.menu-opciones {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+/*-------------------------------------- ESTILOS VARIOS --------------------------------------*/
+th, .robotoBold {
+    font-family: 'robotoboldt', sans-serif;
+    font-weight: 900;
 }
 
-/* .menu-opciones a {
-    margin: 50px;
-    font-family: 'Titillium_Web', sans-serif;
-    font-size: 18px;
-} */
-
-.login {
-    margin-top: auto;
+input[type="radio"] {
+    border-width: 2px; /* Puedes ajustar este valor según tus preferencias */
+    border-color: rgb(160, 148, 148);
 }
 
-.login i {
-    font-size: 35px;
-}
-
-.navbar-collapse {
-
-    align-items: center;
-    justify-content: flex-start;
-    /* display: flex; */
-}
-
-@media screen and (max-width:1100px) {
-    .navbar-brand {
-        display: none;
-    }
-}
-
-.navbar {
-    font-size: 20px;
-    background-color: var(--estructura);
-    color: var(--fuentes);
-    display: flex;
-    justify-content: space-between;
-    /*align-items: center; */
-}
-
-.navbar-collapse a {
-    padding: 5px;
-    font-family: 'Titillium_Web', sans-serif;
-    font-size: 23px;
-}
-
-.logo:hover {
-    transform: scale(1.5);
-    transition: transform 0.3s ease;
-}
-
-
-.navbar-brand:hover {
-    box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7);
-    border-radius: 85px;
-}
-
-/*ul li {
-    list-style: none;
-    margin-left: 75px;
-    float: left;
-    position: relative;
-}*/
-
-/*.menuUsuario ul li{
-    list-style: none;
-    margin-left: 55px;
-    float: left;
-    position: relative;
-}*/
-
-/*
-.menuUsuario2 ul li{
-    margin-left: 0px;
-}
-*/
-
-/* -------------------- ESTILOS FOOTER -------------------- */
-.footer {
-    padding: 70px;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-around;
-    border-top: solid 1px white;
-    padding: 15px;
-}
-
-.redes-sociales,
-.contacto {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding-top: 50px;
-    font-size: 15px;
-}
-.logo i,.contacto i:hover {
-  transform: scale(1.5);
-  transition: transform 0.3s ease;
-}
-
-
-/* -------------------- ESTILOS COMPARTIDOS HEADER Y FOOTER -------------------- */
-.header,
-.footer {
-    font-size: 20px;
-    background-color: var(--estructura);
-    color: var(--fuentes);
-
-}
-
-
-/* -------------------- DECORACIONES/DETALLES -------------------- */
-a:hover {
-    border-bottom: solid 1px rgb(73, 73, 73);
-}
-
-.logo-nav img {
-    width: 130px;
-    position: relative;
-    bottom: 20px;
-}
-
-.navbar a:hover {
-    background-color: rgb(36, 36, 36);
-}
-
-.menuUsuario2 a:hover {
-    background-color: rgba(255, 0, 0, 0);
-    text-decoration-color: aquamarine;
-}
-
-.logo {
-    cursor: pointer;
-}
-
-/* -------------------- CONTENIDO DE LA PÁGINA INICIO -------------------- */
-
-.contenido-pagina {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)),
-        url(../../Archivos/Imagenes/fondo.png);
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.carousel-inner {
-    padding: 50px;
-}
-
-/* -------------------- Modal crear cuenta e iniciar sesion-------------------- */
-.modal-title {
+td {
     text-align: center;
+    vertical-align: middle;
 }
 
-@media screen and (max-width:1390px) {
-    .carousel-inner {
-        padding: auto;
-    }
+.botonesGestionUsuarios{
+    display:flex;
 }
-.modal-title {
-  text-align: center;
+
+.fondoAmarillo, .fondoAzul, .fondoVerde, .fondoRojo, .textoIdCompra {
+    font-family: 'robotoboldt', sans-serif;
+    border-radius: 5px;
 }
-.modal-content {
-background: rgba(207, 199, 199, 0.884);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgb(61, 56, 56);
-  color: white;
+
+.fondoAmarillo {
+    background-color:rgb(228, 225, 140);
 }
+
+.fondoAzul {
+    background-color:rgb(140, 190, 228);
+}
+
+.fondoVerde {
+    background-color:rgb(140, 228, 158);
+}
+
+.fondoRojo {
+    background-color:rgb(228, 147, 140);
+}
+
+.textoIdCompra {
+    background-color:rgb(220, 220, 220);
+}
+
+.navbar-brand {
+    font-family: 'playballregular', sans-serif;
+    font-size: 1.6em;
+}
+
 .form-control {
-background: rgba(98, 97, 97, 0.596);
-border-style: none;
-transition: 0.5s ease-in;
-outline: none;
-box-shadow: none;
-}
-.form-control:focus {
-background: rgba(110, 108, 108, 0.596);
-box-shadow: none;
-outline: none;
-}
-.form-control::placeholder {
-color: rgb(122, 115, 115);
-}
-.ingresar {
-background: #222A3F;
-padding: 10px;
-font-size: 16px;
-font-weight: 700!important;
-color: white;
-box-shadow: 0 0 30px rgba(0, 0, 0, 0.568);
-transition: 0.5s ease-in;
-}
-.ingresar:hover {
-color: white;
-}
-.crearcta {
-color: white;
-text-decoration-style: none;
-text-decoration-line: none;
-font-size: 20px;
-font-weight: 700!important;
-/* border: 2px solid white; */
-padding: 10px;
-border-radius: 10px;
-background: rgba(0, 0, 0, .5);
-}
-.crearcta:hover {
-color: rgb(255, 255, 255);
-text-decoration-style: none;
-text-decoration-line: none;
-cursor: pointer;
-}
-.btn-close{
-position: absolute;
-top: 10px;
-right: 10px;
-font-size: 20px;
-}
-.logologin{
-position: relative;
-top:2px;
-left: 80px;
-text-align: center;
-}
-
-/********************************* efecto de la card *****************/
-
-.sombraCarta:hover {
-    box-shadow: 0px 0px 20px rgba(156, 154, 154, 0.918);
-}
-
-/* -------------------- CONTENIDO DE LA VISTA ADMINISTRADOR -------------------- */
-
-/* -------------------- ICONOS DE ACCIONES -------------------- */
-.imagen-accion {
-    width: 320px;
-    height: 340px;
-    object-fit: cover;
-    border-radius: 20px 20px 0px 0px;
-    background-color: white;
-    background: linear-gradient(180deg, white, rgb(102, 102, 102));
-}
-
-/* -------------------- CARDS DE OPCIONES -------------------- */
-.contenedor-acciones {
-    padding: 50px;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.contenedor-acciones>div {
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
-    background-color: rgb(32, 32, 32);
-    border-radius: 20px;
-}
-
-.contenedor-acciones>div:hover {
-    background-color: rgb(37, 37, 37);
-}
-
-.accion-admin a {
-    text-decoration: none;
-}
-
-/* -------------------- TEXTO DE LA ACCIÓN -------------------- */
-.informacion-accion {
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.informacion-accion>p:first-child {
-    font-weight: 30px;
-    color: var(--fuentes);
-}
-
-/* -------------------- BOTÓN DE LA CARD -------------------- */
-
-.informacion-accion button {
-    background-color: white;
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
-    color: var(--estructura);
-    width: 100px;
-    height: 35px;
-    border-radius: 10px;
-    border: none;
-    font-size: 17px;
-    font-weight: 300px;
-    cursor: pointer;
-}
-
-.informacion-accion button:hover {
-    background-color: lightgrey;
+    border: 1px solid black;
 }

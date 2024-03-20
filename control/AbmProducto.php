@@ -105,25 +105,68 @@ class AbmProducto
     public function buscar($param){
         $where = " true ";
         if ($param<>null){
-        if  (isset($param['idproducto']))
+          if  (isset($param['idproducto']))
             $where.=" and idproducto = ".$param['idproducto']; 
         if  (isset($param['pronombre']))
-                $where.=" and pronombre ='".$param['pronombre']."'";
+                $where.=" and pronombre = '".$param['pronombre']."'";
         if  (isset($param['prodetalle']))
-                $where.=" and prodetalle ='".$param['prodetalle']."'";
+                $where.=" and prodetalle = '".$param['prodetalle']."'";
         if  (isset($param['procantstock']))
-                $where.=" and procantstock ='".$param['procantstock']."'";
+                $where.=" and procantstock = '".$param['procantstock']."'";
         if  (isset($param['tipo']))
-                $where.=" and tipo ='".$param['tipo']."'";
+                $where.=" and tipo = '".$param['tipo']."'";
         if  (isset($param['imagenproducto']))
         $where.=" and imagenproducto='".$param['imagenproducto']."'";  
         }
+
         $obj = new Producto();
         $arreglo = $obj->listar($where);
         return $arreglo;
     }
 
-  
+    public function agregarProducto($datos){
+        $resp = false;
+        $param['idproducto'] = 0;
+        $param['pronombre'] = $datos['pronombre'];
+        $param['prodetalle'] = $datos['prodetalle'];
+        $param['procantstock'] = $datos['procantstock'];
+        $param['tipo'] = $datos['tipo'];
+        $param['imagenproducto'] = $datos['imagenproducto'];
+        verEstructura($param);
+
+        $objProducto = new AbmProducto();
+        $exito = $objProducto->alta($param);
+        if($exito){
+            $resp = true;
+        }
+        return $resp;
+    }
+
+    /**
+     * Esta función recibe un valor que representa una cantidad y un id de producto
+     * y devuelve true si esa cantidad no excede el stock del producto o falso en caso contrario
+     * @param int $cantidad
+     * @param int $idproducto
+     * @return boolean
+     */
+    public function controlarStock($cantidad, $idproducto){
+        $resultado = false;
+        
+        $param['idproducto'] = $idproducto;
+        $producto = new AbmProducto();
+        $colProducto = $producto->buscar($param);
+
+        if(count($colProducto) > 0){
+
+            $producto = $colProducto[0];
+            $stock = $producto->getProCantstock();
+
+            if($cantidad <= $stock){
+
+                $resultado = true;
+            }
+        }
+        return $resultado;
+    }
+
 }
-
-

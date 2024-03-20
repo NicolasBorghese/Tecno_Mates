@@ -174,7 +174,7 @@ class AbmMenuRol{
 
         }
 
-        //echo $where ." <br>";
+        //echo "<br>La condición de busqueda es: ".$where." <br><br>";
 
         $obj = new MenuRol();
         $arreglo = $obj->listar($where);
@@ -203,6 +203,16 @@ class AbmMenuRol{
         }
 
         return $colInfo;
+    }
+
+    /**
+     * Devuelve una colección de Menus según el id de rol recibido
+     * 
+     * @param int
+     * @return array
+     */
+    public function obtenerColMenus($rol){
+        $colMenus = null;
     }
 }
 

@@ -27,7 +27,7 @@ class AbmCompra{
         array_key_exists('idcompra', $param) &&
         array_key_exists('cofecha', $param) &&
         array_key_exists('idusuario', $param)
-        ){/*
+        ){
             $objUsuario = new Usuario();
             $objUsuario->setIdUsuario($param['idusuario']);
             $objUsuario->cargar();
@@ -38,13 +38,7 @@ class AbmCompra{
                 $param['idcompra'],
                 $param['cofecha'],
                 $objUsuario
-            );*/
-            $obj = new Compra();
-            $objUsuario = new Usuario();
-            $objUsuario->setIdUsuario($param['idusuario']);
-            $objUsuario->cargar();
-
-            $obj->setear($param['idcompra'], $param['cofecha'], $objUsuario);
+            );
         }
         return $objCompra;
     }
@@ -128,7 +122,7 @@ class AbmCompra{
      * @param array $param
      * @return boolean
      */
-    public function modificacion($param){
+    public function modificar($param){
         //echo "Estoy en modificacion";
         $resp = false;
 
@@ -162,7 +156,7 @@ class AbmCompra{
         if ($param <> NULL){
 
             if  (isset($param['idcompra']))
-                $where .= " and idcompra = '".$param['idcompra']."'";
+                $where .= " and idcompra = ".$param['idcompra'];
 
             if  (isset($param['cofecha']))
                 $where.= " and cofecha = '".$param['cofecha']."'";
@@ -175,6 +169,47 @@ class AbmCompra{
         $arreglo = $obj->listar($where);
 
         return $arreglo;
+    }
+
+    
+    /**
+     * Crea un carrito con su estado
+     * $param contiene:
+     * $param['idusuario']
+     */
+    public function crearCarrito($param){
+        $resp = false;
+       /* $estadoCompra = new AbmCompraEstado();
+         if($this->alta($param)){
+            $compraUsuario = $this->buscar($param['idusuario']);
+            $objCompra = $compraUsuario[count($compraUsuario)-1];//seecciona a ultima compra
+            $array['idcompraestado'] = 0;
+            $array['idcompra'] = $objCompra->getIdCompra();
+            $array['idcompraestadotipo'] = 1;
+            $array['cefechaini'] = NULL;// date('Y-m-d H:i:s');//guarda la fecha de inicio?
+            $array['cefechafin'] = NULL;
+            if($estadoCompra->alta($array)){
+                $resp = true;
+            }
+        } */
+        
+        return $resp;
+    }
+
+    /**
+     * Recibe un id de usuario y retorna una colección de objeto 
+     * compra que no posea un estado de ese usuario.
+     * @param int $idUsuario
+     * @return array
+     */
+    public function buscarCarrito($idUsuario){
+        $compra = new Compra();
+        $sql = "idusuario = ".$idUsuario. " AND 
+        NOT EXISTS (
+        SELECT * FROM compraestado WHERE compraestado.idcompra = compra.idcompra);";
+       // echo $sql."<br>";
+        $carrito = $compra->listar($sql);//devuelve 1 carrito sin relacion a compraestado
+        return $carrito;
     }
 
     /**
@@ -199,31 +234,6 @@ class AbmCompra{
 
         return $colInfo;
     }
-
-    /**
-     * Retorna todos sus obj item
-     * @param array $param
-     * @return array|null
-     */
-    public function buscarItems($param){
-        $where = " true ";
-        
-        if ($param <> NULL){
-
-            if  (isset($param['idcompra']))
-                $where .= " and idcompra = '".$param['idcompra']."'";
-
-            if  (isset($param['cofecha']))
-                $where.= " and cofecha = '".$param['cofecha']."'";
-
-            if  (isset($param['idusuario']))
-                $where.= " and idusuario = ".$param['idusuario'];
-        }
-
-        $obj = new CompraItem();
-        $arreglo = $obj->listar($where);
-
-        return $arreglo;
-    }
 }
+
 ?>

@@ -11,8 +11,16 @@ class AbmCompraItem{
         $obj = null;
         if( array_key_exists('idcompraitem',$param) and array_key_exists('idproducto',$param)     
           and array_key_exists('idcompra',$param) and array_key_exists('cicantidad',$param)){
+            
+            $objProducto = new Producto();
+            $objProducto->setIdProducto($param['idproducto']);
+            $objProducto->cargar();
+            $objCompra = new Compra();
+            $objCompra->setIdCompra($param['idcompra']);
+            $objCompra->cargar();
+
             $obj = new CompraItem();
-            $obj->setear($param['idcompraitem'], $param['idproducto'],$param['idcompra'],$param['cicantidad']);
+            $obj->setear($param['idcompraitem'],$objProducto,$objCompra,$param['cicantidad']);
         }
         return $obj;
     }
@@ -69,7 +77,7 @@ class AbmCompraItem{
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $unObjCompraI = $this->cargarObjeto($param);
+            $unObjCompraI = $this->cargarObjetoConClave($param);
             if ($unObjCompraI!=null && $unObjCompraI->eliminar()){
                 $resp = true;
             }
@@ -100,6 +108,7 @@ class AbmCompraItem{
      * @return array
      */
     public function buscar($param){
+        
         $where = " true ";
         if ($param<>null){
             if  (isset($param['idcompraitem']))
@@ -107,15 +116,83 @@ class AbmCompraItem{
             if  (isset($param['idproducto']))
                 $where.=" and idproducto ='".$param['idproducto']."'";
             if  (isset($param['idcompra']))
-                $where.=" and idcompra = ".$param['idcompra'];
+                $where.=" and idcompra ='".$param['idcompra']."'";
             if  (isset($param['cicantidad']))
                 $where.=" and cicantidad ='".$param['cicantidad']."'";
         }
-
         $obj = new CompraItem();
         $arreglo = $obj->listar($where);
-
         return $arreglo;
+    }
+
+    /**
+     * Agrega Productos al carrito
+     * Recibe un Array con el id del usuario y los datos del prodcuto
+     */
+    public function agregarProductoCarrito($datos){
+        $resp = false;
+        $idusuario = $datos['idusuario'];
+        $objCompra = new AbmCompra();
+        $busquedaCompra = $objCompra->buscarCarrito($idusuario);
+
+        //Crea un carrito nuevo si el usuario no tiene uno
+        if(count($busquedaCompra) == 0){
+
+            $paramCompra['idcompra'] = 0;
+            $paramCompra['cofecha'] = '0000-00-00 00:00:00';
+            $paramCompra['idusuario'] = $idusuario;
+            $objCompra->alta($paramCompra);
+            
+            $busquedaCompra = $objCompra->buscarCarrito($idusuario);
+        } 
+
+        $compra = $busquedaCompra[0];
+
+        $abmCompraItem = new AbmCompraItem();
+        $paramCompraItem['idproducto'] = $datos['idproducto'];
+        $paramCompraItem['idcompra'] = $compra->getIdCompra();
+        $colCompraItem = $abmCompraItem->buscar($paramCompraItem);
+
+        if(count($colCompraItem) > 0){
+
+            $cantidad1 = $datos['cantidad'];//Recibimos del item nuevo a sumar al carrito
+            $cantidad2 = $colCompraItem[0]->getCiCantidad();
+
+            $cantidad3 = $cantidad1 + $cantidad2;
+
+            $objAbmProducto = new AbmProducto();
+            $respuesta = $objAbmProducto->controlarStock($cantidad3, $datos['idproducto']);
+
+            if ($respuesta) {
+
+                $datosCompraItem['idcompraitem'] = $colCompraItem[0]->getIdCompraItem();
+                $datosCompraItem['idproducto'] = $colCompraItem[0]->getObjProducto()->getIdProducto();
+                $datosCompraItem['idcompra'] = $colCompraItem[0]->getObjCompra()->getIdCompra();
+                $datosCompraItem['cicantidad'] = $cantidad3;
+
+                $abmCompraItem->modificar($datosCompraItem);
+
+                $resp = true;
+
+            } else {
+                $resp = false;
+            }
+
+        } else {
+            $producto['idcompraitem'] = 0;
+            $producto['idproducto'] = $datos['idproducto'];
+            $producto['idcompra'] = $compra->getIdCompra();
+            $producto['cicantidad'] = $datos['cantidad'];
+
+            $objCompraItem = new AbmCompraItem();
+            $agregar = $objCompraItem->alta($producto);
+            if($agregar){
+                $resp = true;
+            }else{
+                $resp = false;
+            }
+        }
+        return $resp;
     }
 }
 

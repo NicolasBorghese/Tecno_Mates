@@ -69,7 +69,7 @@ class AbmCompraEstadoTipo{
     public function baja($param){
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
-            $unObjCompraEstadoT = $this->cargarObjeto($param);
+            $unObjCompraEstadoT = $this->cargarObjetoConClave($param);
             if ($unObjCompraEstadoT!=null && $unObjCompraEstadoT->eliminar()){
                 $resp = true;
             }

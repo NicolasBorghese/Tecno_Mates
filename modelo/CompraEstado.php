@@ -144,11 +144,13 @@ $this->cefechafin = $cefechafin;
         $resp = false;
         $base = new BaseDatos();
         $sql = "UPDATE compraestado SET 
-        idcompra = '".$this->getObjCompra()->getIdCompra()."',
-        idcompraestadotipo = '".$this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo()."',
+        idcompra = ".$this->getObjCompra()->getIdCompra().",
+        idcompraestadotipo = ".$this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo().",
         cefechaini = '".$this->getCeFechaIni()."',
-        cefechafin=" . (($this->getCeFechaFin() == '') ? "NULL" : "'{$this->getCeFechaFin()}'") . "
-        WHERE idcompraestado = '".$this->getIdCompraEstado()."'";
+        cefechafin = '" .$this->getCeFechaFin(). "'
+        WHERE idcompraestado = ".$this->getIdCompraEstado();
+
+        //echo $sql."<br>";
     
       if ($base->Iniciar()) {
    
@@ -176,7 +178,7 @@ $this->cefechafin = $cefechafin;
       $base = new BaseDatos();
 
       $sql = "DELETE FROM compraestado WHERE idcompraestado = ".$this->getIdCompraEstado()."";
-
+      
       if ($base->Iniciar()) {
         if ($base->Ejecutar($sql)) {
           return true;
@@ -199,14 +201,14 @@ $this->cefechafin = $cefechafin;
      * 
      * @return array
      */
-    public function listar($parametro){
+    public function listar($parametro = ""){
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM compraestado ";
         if ($parametro != "") {
           $sql .= " WHERE ".$parametro;
         }
-
+     
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
           if ($res > 0) {

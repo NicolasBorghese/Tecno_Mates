@@ -1,5 +1,6 @@
 <?php
-class Compra extends BaseDatos{
+class Compra {
+    
  private $idcompra;
  private $cofecha;
  private $objUsuario;
@@ -9,7 +10,7 @@ class Compra extends BaseDatos{
  public function __construct()
  {
     $this->idcompra="";
-    $this->cofecha="";
+    $this->cofecha="0000-00-00 00:00:00";//para evitar problemas con los null
     $this->objUsuario= new Usuario();
  }
 
@@ -178,10 +179,11 @@ class Compra extends BaseDatos{
     $base = new BaseDatos();
 
     $sql = "SELECT * FROM compra ";
-
+      
    if ($parametro != "") {
-     $sql .= " WHERE ".$parametro;
+     $sql .= " WHERE $parametro";
     }
+    //echo $sql;
    $res = $base->Ejecutar($sql);
    if ($res > -1) {
      if ($res > 0) {
@@ -200,37 +202,6 @@ class Compra extends BaseDatos{
     }
         return $arreglo;
     }
-
-
-
-   /**
-* Obtiene la compra activa en estado carrito
-* @return Compra
-*/
-public function buscarCarrito($param)
-{
-    $resp = null;
-
-    $idUsuario = $param['idusuario'];
-    $consulta = "SELECT * FROM compra INNER JOIN compraestado ON compraestado.idcompra = compra.idcompra
-    WHERE idusuario = ".$idUsuario." AND idcompraestadotipo = 1 AND cefechafin IS NULL;";
-
-    if ($this->Iniciar()) {
-        if ($this->Ejecutar($consulta)) {
-            if ($row= $this->Registro()) {
-                $resp = new Compra();
-                $resp->buscar(row["idcompra"]);
-            }
-        } else {
-            $this->setMensajeOperacion("compra->buscarCarrito: " . $this->getError());
-        }
-    } else {
-        $this->setMensajeOperacion("compra->buscarCarrito: " . $this->getError());
-    }
-
-    return $resp;
-}
-
 
     /**
      * Esta función lee todos los valores de todos los atributos del objeto y los devuelve
