@@ -19,7 +19,7 @@ Programación Web Dinámica 2023
 
 ## Sobre el proyecto
 
-**Tecno-Mates** es el trabajo final de la materia **Programación Web Dinámica (PWD)** desarrollado en la Universidad Nacional Del Comahue (UNCOMA). Se trata de un e-commerce de productos relacionados al mate — mates, yerbas, bombillas, termos y sets — construido con PHP, PostgreSQL y Bootstrap 4 bajo arquitectura MVC.
+**Tecno-Mates** es el trabajo final de la materia **Programación Web Dinámica (PWD)** desarrollado en la Universidad Nacional Del Comahue (UNCOMA) para la Tecnicatura Universitaria en Desarrollo Web. Se trata de un e-commerce de productos relacionados al mate — mates, yerbas, bombillas, termos y sets — construido con PHP, PostgreSQL y Bootstrap 4 bajo arquitectura MVC.
 
 ### ¿Qué permite hacer?
 
