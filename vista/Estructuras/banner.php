@@ -34,6 +34,7 @@
 
     /*-------------------------------------- ESTILO BANNER ---------------------------------------*/
     .jumbotron {
+        width: 100%;
         background-image: linear-gradient(rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.2)),
             url('../img/Banners/Banner10.jpg');
         background-size: cover;

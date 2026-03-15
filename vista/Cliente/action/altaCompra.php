@@ -1,7 +1,7 @@
 <?php
 include_once ("../../../configuracion.php");
 //colocar en menu dinamico, no va un altaCompra.php
-//tiene que recibir el idusario y cofecha(o seteamos la fecha en 0000-00-00 00:00:00 ?)
+//tiene que recibir el idusario y cofecha(o seteamos la fecha en 1900-01-01 00:00:00 ?)
 $datos = data_submitted();
 verEstructura($datos);
 $datos['cofecha'] =   null;

@@ -7,18 +7,17 @@ header("Cache-Control: no-cache, must-revalidate");
 // CONFIGURACION APP//
 /////////////////////////////
 
-$PROYECTO ='00_PROYECTOS/03_PWD_2023/Entregas/Tecno_Mates/';
-
-//variable que almacena el directorio del proyecto
-$ROOT =$_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";
+// Con el servidor integrado de PHP (php -S localhost:8000) ejecutado desde
+// la raíz del proyecto, DOCUMENT_ROOT ya apunta a la carpeta del proyecto.
+$ROOT = $_SERVER['DOCUMENT_ROOT']."/";
 
 include_once($ROOT.'Util/funciones.php');
 
 // Variable que define la pagina de autenticacion del proyecto
-$INICIO = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/Vista/Home/home.php";
+$INICIO = "Location:http://".$_SERVER['HTTP_HOST']."/Vista/Home/home.php";
 
 // variable que define la pagina principal del proyecto (menu principal)
-$PRINCIPAL = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/Vista/Home/home.php";
+$PRINCIPAL = "Location:http://".$_SERVER['HTTP_HOST']."/Vista/Home/home.php";
 
 $_SESSION['ROOT']=$ROOT;
 

@@ -10,7 +10,7 @@ class Compra {
  public function __construct()
  {
     $this->idcompra="";
-    $this->cofecha="0000-00-00 00:00:00";//para evitar problemas con los null
+    $this->cofecha="1900-01-01 00:00:00";//para evitar problemas con los null
     $this->objUsuario= new Usuario();
  }
 

@@ -139,7 +139,7 @@ class AbmCompraItem{
         if(count($busquedaCompra) == 0){
 
             $paramCompra['idcompra'] = 0;
-            $paramCompra['cofecha'] = '0000-00-00 00:00:00';
+            $paramCompra['cofecha'] = '1900-01-01 00:00:00';
             $paramCompra['idusuario'] = $idusuario;
             $objCompra->alta($paramCompra);
             

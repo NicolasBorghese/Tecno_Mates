@@ -114,7 +114,7 @@ public function getMensajeOperacion(){
     public function modificar(){
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compraestadotipo SET idcompraestadotipo = '".$this->getIdCompraEstadoTipo()."', cetdescripcion = '".$this->getDescripcion()."','".$this->getDetalle()."' WHERE idcompraestadotipo = '".$this->getIdCompraEstadoTipo()."'";
+        $sql = "UPDATE compraestadotipo SET idcompraestadotipo = '".$this->getIdCompraEstadoTipo()."', cetdescripcion = '".$this->getDescripcion()."', cetdetalle = '".$this->getDetalle()."' WHERE idcompraestadotipo = '".$this->getIdCompraEstadoTipo()."'";
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -169,7 +169,7 @@ public function getMensajeOperacion(){
         $sql = "SELECT * FROM compraestadotipo ";
     
        if ($parametro != "") {
-         $sql .= " WHERE .$parametro";
+         $sql .= " WHERE ".$parametro;
         }
        $res = $base->Ejecutar($sql);
        if ($res > -1) {

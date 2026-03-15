@@ -25,7 +25,7 @@ if (count($colUsuarios) == 1){
         if($session ->validar()){
             $respuesta = array("resultado" => "exito", "mensaje" => "Sesion iniciada con exito.");
         }else{
-            if($colUsuarios[0]->getUsDeshabilitado() != '0000-00-00 00:00:00'){
+            if($colUsuarios[0]->getUsDeshabilitado() != '1900-01-01 00:00:00'){
                 $respuesta = array("resultado" => "error", "mensaje" => "Su cuenta ha sido deshabilitada");
             }else{
                 $respuesta = array("resultado" => "error", "mensaje" => "Esta cuenta aun no tiene roles asignados.

@@ -241,7 +241,7 @@ class AbmUsuario
         $paramUsuario['usnombre'] = $usuario;
         $paramUsuario['uspass'] = $passEncriptada;
         $paramUsuario['usmail'] = $email;
-        $paramUsuario['usdeshabilitado'] = "'0000-00-00 00:00:00'";
+        $paramUsuario['usdeshabilitado'] = "'1900-01-01 00:00:00'";
 
         //Lo cargo a la base de datos
         $exito = $objUsuario->alta($paramUsuario);

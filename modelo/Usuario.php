@@ -114,7 +114,7 @@ class Usuario {
         $resp = false;
         $base = new BaseDatos();
         $sql = "INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) 
-        VALUES('".$this->getUsNombre()."','".$this->getUsPass()."','".$this->getUsMail()."', '0000-00-00 00:00:00');";
+        VALUES('".$this->getUsNombre()."','".$this->getUsPass()."','".$this->getUsMail()."', '1900-01-01 00:00:00');";
 
         if ($base->Iniciar()){
             if ($id = $base->Ejecutar($sql)) {

@@ -41,7 +41,7 @@ class AbmMenuRol{
                 $objRol
             );
         }
-        return $objCompra;
+        return $objMenuRol;
     }
     
     /**
@@ -170,7 +170,7 @@ class AbmMenuRol{
                 $where .= " and idrol = ".$param['idrol'];
 
             if  (isset($param['idmenu']))
-                $where.= " and idmenu = '".$param['idmenu'];
+                $where.= " and idmenu = '".$param['idmenu']."'";
 
         }
 

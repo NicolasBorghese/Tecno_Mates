@@ -274,7 +274,7 @@ class AbmCompraEstado{
             //parametros de busqueda
             $param['idcompra'] = $compra->getIdCompra();
             $param['idcompraestadotipo'] = 2;
-            $param['cefechafin'] = '0000-00-00 00:00:00';
+            $param['cefechafin'] = '1900-01-01 00:00:00';
             $exito = $objEstado->buscar($param);
             verEstructura($exito);
 
@@ -310,10 +310,10 @@ class AbmCompraEstado{
      */
     public function cancelarCompra($datos){
         $objEstado = new AbmCompraEstado();
-        //Busco la compra que tenga fecha fin en '0000-00-00 00:00:00
+        //Busco la compra que tenga fecha fin en '1900-01-01 00:00:00
         //el error era en como el buscar buscaba los datos(tenia cifechafin en ves de cefechafin)
         $busqueda['idcompra'] = $datos['idcompra'];
-        $busqueda['cefechafin'] = '0000-00-00 00:00:00';
+        $busqueda['cefechafin'] = '1900-01-01 00:00:00';
         $colEstado = $objEstado->buscar($busqueda);
         verEstructura($colEstado);
         

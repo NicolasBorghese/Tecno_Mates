@@ -10,7 +10,7 @@ $colUsuario = $objAbmUsuario->buscar($param);
 $param['uspass'] = $datos['uspass'];
 $param['usnombre'] = $colUsuario[0]->getUsNombre();
 $param['usmail'] = $colUsuario[0]->getUsMail();
-$param['usdeshabilitado'] = '0000-00-00 00:00:00';
+$param['usdeshabilitado'] = '1900-01-01 00:00:00';
 
 $resultado = $objAbmUsuario->modificar($param);
 

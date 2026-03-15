@@ -117,8 +117,13 @@ $this->cefechafin = $cefechafin;
         $resp = false;
         $base = new BaseDatos();
 
+        $fechaini = $this->getCeFechaIni();
+        $fechafin = $this->getCeFechaFin();
+        $sqlFechaini = ($fechaini === '' || $fechaini === null) ? "'1900-01-01 00:00:00'" : "'".$fechaini."'";
+        $sqlFechafin = ($fechafin === '' || $fechafin === null) ? "'1900-01-01 00:00:00'" : "'".$fechafin."'";
+
         $sql = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin) VALUES ('".$this->getObjCompra()->getIdCompra()."','". $this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo().
-        "','".$this->getCeFechaIni()."','". $this->getCeFechaFin()."')";
+        "',".$sqlFechaini.",".$sqlFechafin.")";
 
         if ($base->Iniciar()) {
           if ($id = $base->Ejecutar($sql)) {
@@ -143,11 +148,16 @@ $this->cefechafin = $cefechafin;
     public function modificar(){
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compraestado SET 
+        $fechaini = $this->getCeFechaIni();
+        $fechafin = $this->getCeFechaFin();
+        $sqlFechaini = ($fechaini === '' || $fechaini === null) ? 'NULL' : "'".$fechaini."'";
+        $sqlFechafin = ($fechafin === '' || $fechafin === null) ? 'NULL' : "'".$fechafin."'";
+
+        $sql = "UPDATE compraestado SET
         idcompra = ".$this->getObjCompra()->getIdCompra().",
         idcompraestadotipo = ".$this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo().",
-        cefechaini = '".$this->getCeFechaIni()."',
-        cefechafin = '" .$this->getCeFechaFin(). "'
+        cefechaini = ".$sqlFechaini.",
+        cefechafin = ".$sqlFechafin."
         WHERE idcompraestado = ".$this->getIdCompraEstado();
 
         //echo $sql."<br>";

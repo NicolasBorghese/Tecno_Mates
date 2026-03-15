@@ -36,10 +36,11 @@ include_once("../Estructuras/navSeguro.php");
             if (count($estadoCompra) > 0) {
                 $resp = false;
                 $j = 0;
+                $tipoEstado = null;
 
                 while ($j < count($estadoCompra) && $resp == false) {
                     $fechafin = $estadoCompra[$j]->getCeFechaFin();
-                    if ($fechafin == '0000-00-00 00:00:00') {
+                    if ($fechafin == '1900-01-01 00:00:00') {
                         $tipoEstado = $estadoCompra[$j]->getObjCompraEstadoTipo()->getDescripcion();
                         $resp = true;
                     }

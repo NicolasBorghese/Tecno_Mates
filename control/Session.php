@@ -26,7 +26,7 @@ class Session {
   
         $param['usnombre'] = $nombreUsuario;
         $param['uspass'] = $psw;
-        $param['usdeshabilitado'] = '0000-00-00 00:00:00';
+        $param['usdeshabilitado'] = '1900-01-01 00:00:00';
 
         //Buscamos la colección de usuarios que cumplen con usuario y contraseña
         $colUsuarios = $objAbmUsuario->buscar($param);
@@ -79,7 +79,7 @@ class Session {
             
             $objAbmUsuario = new AbmUsuario();
             $param['idusuario'] = $_SESSION['idusuario'];
-            $param['usdeshabilitado'] = '0000-00-00 00:00:00';
+            $param['usdeshabilitado'] = '1900-01-01 00:00:00';
             $colUsuario = $objAbmUsuario->buscar($param);
 
             if(count($colUsuario) > 0){

@@ -13,7 +13,7 @@ if (filter_var($param['usmail'], FILTER_VALIDATE_EMAIL)) {
 
     $param['usnombre'] = $colUsuario[0]->getUsNombre();
     $param['uspass'] = $colUsuario[0]->getUsPass();
-    $param['usdeshabilitado'] = '0000-00-00 00:00:00';
+    $param['usdeshabilitado'] = '1900-01-01 00:00:00';
 
     $resultado = $objAbmUsuario->modificar($param);
 

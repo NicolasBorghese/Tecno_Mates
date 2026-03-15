@@ -20,26 +20,27 @@ class BaseDatos extends PDO {
      * Crea un objeto de tipo BaseDatos y además realiza la conexión con el servidor directamente
      */
     public function __construct(){
-        $this->engine = 'mysql';
+        $this->engine = 'pgsql';
         $this->host = 'localhost';
         $this->database = 'bdcarritocompras';
-        $this->user = 'root';
-        $this->pass = '';
+        $this->user = 'postgres';
+        $this->pass = '1234';
         $this->debug = true;
         $this->error ="";
         $this->sql ="";
         $this->indice =0;
-        
-        $dns = $this->engine.':dbname='.$this->database.";host=".$this->host;
+
+        $dns = $this->engine.':host='.$this->host.';dbname='.$this->database;
 
         try {
-            parent::__construct( $dns, $this->user, $this->pass,array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            parent::__construct($dns, $this->user, $this->pass);
+            $this->query("SET client_encoding TO 'UTF8'");
             $this->conec=true;
         } catch (PDOException $e) {
             $this->sql = $e->getMessage();
             $this->conec=false;
         }
-       
+
     }
 
     /**
@@ -151,10 +152,14 @@ class BaseDatos extends PDO {
             $this->analizarDebug();
             $id = 0;
         }else{
-            $id =  $this->lastInsertId(); 
-            if ($id == 0){
+            try {
+                $id = parent::query("SELECT lastval()")->fetchColumn();
+                if (!$id || $id == 0) {
+                    $id = -1;
+                }
+            } catch (PDOException $e) {
                 $id = -1;
-            }   
+            }
         }
         return $id;
     }
